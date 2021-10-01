@@ -40,7 +40,7 @@ app.use('/room', roomRouter );
 app.listen(PORT, ()=> console.log("Server started in", PORT));
 
 app.get("/", (request, response)=>{
-    response.send("Welcome to Hall Booking App ")
+    response.send("Welcome to Hall Booking App ");
 });
 
 
