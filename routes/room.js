@@ -21,7 +21,7 @@ router.route("/roomBooking").post(async(request,response)=>{
     const client =await createConnection();
     const isRoom = await getRoom(client,{room_id:room_id})
     if(!isRoom){
-        response.send({message:"no such room is present,room_id is between 15 and 20"})
+        response.send({message:"Invalid Room ID, please enter the room_id between 15 and 20!!!"})
     }
     else{
         
@@ -30,10 +30,10 @@ router.route("/roomBooking").post(async(request,response)=>{
         const booked="booked";
     const rooms = await bookRoom(client,{customer_name:name,date:date,start_time:s_time,end_time:e_time,room_id:room_id,booked_status:booked});
        const updateRoomStatus= await updateRoom(client,room_id);
-    response.send({message:"room booked successfully",rooms:rooms,updateRoomStatus:updateRoomStatus});
+    response.send({message:"Congratulations!!! Room Booked Successfully",rooms:rooms,updateRoomStatus:updateRoomStatus});
       }
       else{
-        response.send({message:"room is already booked"})
+        response.send({message:"Room has already been Booked"})
       }
     }
 });
@@ -44,7 +44,8 @@ router.route("/roomBooking").post(async(request,response)=>{
 router.route("/roomlist").get(async(request,response)=>{
     const client =await createConnection();
     const rooms = await getRoomList(client,{});
-    response.send(rooms);
+    response.send({message:"List of Rooms", rooms});
+    
   });
 
 //Listing all Customer details along with Booking status
@@ -52,7 +53,7 @@ router.route("/roomlist").get(async(request,response)=>{
 router.route("/customerlist").get(async(request,response)=>{
     const client =await createConnection();
     const rooms = await getCustomerList(client,{});
-    response.send(rooms);
+    response.send({message:"List of Booked customer", rooms});
   });
   
 
