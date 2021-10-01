@@ -3,45 +3,17 @@ import { createConnection } from '../index.js';
 import express from 'express';
 const router = express.Router();
 
-router.route("/").get(async (request, response) => {
+//creating new Room details
+
+
+router.route("/create").post(async (request, response) => {   
+    const room=request.body;
     const client = await createConnection();
-    const hallroom = await getAllRoom(client);
+    const hallroom = await insertRoom(client,room);
     response.send(hallroom);
 });
 
-
-router.route("/getRoom").get(async (request, response) => {
-    const room_id = request.params.room_id;
-    const client = await createConnection();
-    const hallroom = await getRoom(client, {room_id:room_id});
-    response.send(hallroom);
-});
-
-
-// router.route("/:id").get(async (request, response) => {
-//     const id = request.params.id;
-//     const client = await createConnection();
-//     const hallroom = await getRoomById(client, id);
-//     response.send(hallroom);
-// });
-
-
-// router.route("/create").post(async (request, response) => {   
-//     const room=request.body;
-//     const client = await createConnection();
-//     const hallroom = await insertRoom(client,room);
-//     response.send(hallroom);
-// });
-
-
-router.route("/create").post(async(request,response)=>{
-    const {seats,amenities,price,room_id}=request.body;
-    const bookedStatus="false";
-    const clients =await createConnection();
-    const rooms = await insertRoom(clients,{seats,amenities,price,room_id,bookedStatus:bookedStatus});
-    response.send(rooms);
-});
-
+//Booking a Room based on date and time 
 
 router.route("/roomBooking").post(async(request,response)=>{
     const {name,date,s_time,e_time,room_id}=request.body;
@@ -67,6 +39,7 @@ router.route("/roomBooking").post(async(request,response)=>{
 });
 
 
+//Listing all Room along with Booking status
 
 router.route("/roomlist").get(async(request,response)=>{
     const client =await createConnection();
@@ -74,12 +47,43 @@ router.route("/roomlist").get(async(request,response)=>{
     response.send(rooms);
   });
 
-  
+//Listing all Customer details along with Booking status
+
 router.route("/customerlist").get(async(request,response)=>{
     const client =await createConnection();
     const rooms = await getCustomerList(client,{});
     response.send(rooms);
   });
   
+
+router.route("/").get(async (request, response) => {
+    const client = await createConnection();
+    const hallroom = await getAllRoom(client);
+    response.send(hallroom);
+});
+
+
+// router.route("/getRoom").get(async (request, response) => {
+//     const room_id = request.params.room_id;
+//     const client = await createConnection();
+//     const hallroom = await getRoom(client, {room_id:room_id});
+//     response.send(hallroom);
+// });
+
+
+// router.route("/:id").get(async (request, response) => {
+//     const id = request.params.id;
+//     const client = await createConnection();
+//     const hallroom = await getRoomById(client, id);
+//     response.send(hallroom);
+// });
+
+// router.route("/create").post(async(request,response)=>{
+//     const {seats,amenities,price,room_id}=request.body;
+//     const bookedStatus="false";
+//     const clients =await createConnection();
+//     const rooms = await insertRoom(clients,{seats,amenities,price,room_id,bookedStatus:bookedStatus});
+//     response.send(rooms);
+// });
 
 export const roomRouter = router;

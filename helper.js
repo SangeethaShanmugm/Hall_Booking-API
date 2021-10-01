@@ -35,14 +35,6 @@ export async function bookRoom(client,room){
 }
 
 
-// export async function bookedRoomDate(client,room){
-//     const result = await client.db("hallbooking").collection("booked").findOne(room_id, date);
-//     console.log("successfully room booked is inserted",result);
-//     return result;
-// }
-
-
-
 export async function getRoomList (client,filter){
     const result = await client.db("hallbooking").collection("booked").find(filter).toArray();
     console.log("successfully room  list is obtanied",result);
