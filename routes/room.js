@@ -21,7 +21,7 @@ router.route("/roomBooking").post(async(request,response)=>{
     const client =await createConnection();
     const isRoom = await getRoom(client,{room_id:room_id})
     if(!isRoom){
-        response.send({message:"Invalid Room ID, please enter the room_id between 15 and 20!!!"})
+        response.send({message:"Invalid Room ID, please enter the room_id between 15 to 20!!!"})
     }
     else{
         
