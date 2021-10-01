@@ -12,6 +12,7 @@ const PORT = process.env.PORT;
 
 app.use(express.json());
 
+console.log("Welcome to the Hall Booking API");
 // const rooms = [
 //     {  id:"1", roomId: "103", amenities: ["TV","AC","Towels"],price:"120"},
 //     { id:"2",roomId:"100", amenities: ["TV"],price:"250"},
